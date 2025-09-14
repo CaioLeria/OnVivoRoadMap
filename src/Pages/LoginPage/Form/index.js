@@ -29,7 +29,7 @@ function LoginForm() {
                      
                   
        <Styles.link href="https://www.google.com.br" style={{ textDecoration: 'none' }}>
-                          <GlobalStyles.h2>Esqueceu a senha?</GlobalStyles.h2>
+                          <GlobalStyles.H2>Esqueceu a senha?</GlobalStyles.H2>
                           </Styles.link> 
                           </Styles.textAreas>
     </Styles.formContainer>

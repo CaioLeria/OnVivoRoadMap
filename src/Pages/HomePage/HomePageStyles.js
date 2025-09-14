@@ -2,7 +2,9 @@ import {styled} from 'styled-components';
 
 export const HomePageContainer = styled.div`
   margin : 0px;
-  padding :0px;`    
+  padding :0px;
+  min-height: 100vh;
+  `    
 
 export const Body = styled.div`
   margin :0px;
@@ -10,6 +12,8 @@ export const Body = styled.div`
   background-color: #F5E2FF;
   height: 100vh;
   width: 100%;
+  display: flex;
+  align-items: start;
   `
 export const MenuSection = styled.section`
 width: 70%;

@@ -11,12 +11,12 @@ function CampoTexto(props) {
     }
 
     return (
-        <GlobalStyles.colounm>
-            <GlobalStyles.h1>
+        <GlobalStyles.Column>
+            <GlobalStyles.H1>
                 {props.label}
-            </GlobalStyles.h1>
-            <Styles.textInput value={props.valor} onChange={aoDigitado} required={props.obrigatorio} placeholder={placeholderModificada}/>
-        </GlobalStyles.colounm>
+            </GlobalStyles.H1>
+            <Styles.textInput type = {props.type} value={props.valor} onChange={aoDigitado} required={props.obrigatorio} placeholder={placeholderModificada}/>
+        </GlobalStyles.Column>
     )
 }
 

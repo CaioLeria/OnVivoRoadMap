@@ -2,6 +2,7 @@
 import LoginPage from './Pages/LoginPage';
 import HomePage from './Pages/HomePage';
 import GlobalStyle from './Components/GlobalStyle';
+import RegisterNewEmployeePage from './Pages/RegisterNewEmployeePage';
 import './App.css';
 
 function App() {
@@ -10,6 +11,7 @@ function App() {
     <GlobalStyle />
       <LoginPage />
       <HomePage />
+      <RegisterNewEmployeePage />
     </div>
   );
 }
