@@ -1,8 +1,8 @@
 import * as Styles from './StatsBoxStyles'
-import {Column} from '../../../Components/GlobalStyle'
+import { Column } from '../GlobalStyle';
+
 const StatsBox = (props) => {
     return (
-
         <Styles.Container>
         <Styles.Box>
             <Styles.BoxTitle>Seu Progresso:</Styles.BoxTitle>
@@ -24,9 +24,5 @@ const StatsBox = (props) => {
         </Styles.Container>
     )
 }
-
-
- 
-
 
 export default StatsBox;

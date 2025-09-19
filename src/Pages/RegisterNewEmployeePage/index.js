@@ -1,20 +1,28 @@
-import * as GlobalStyle from "../../Components/GlobalStyle";
+import { useState } from 'react';
 import Header from "../../Components/Header";
-import * as Styles from './RegisterNewEmployeeStyle'
+import * as Styles from './RegisterNewEmployeeStyle';
 import CampoTexto from "../../Components/CampoTexto";
 import SuspendedList from "../../Components/SuspendedList";
-import { useState } from "react";
-import { data } from "react-router-dom";
+import * as GlobalStyles from "../../Components/GlobalStyle";
 
 const buddys = [
   "Caio Oliveira",
-  "Ana Silva"]
+  "Ana Silva"
+];
 
-  const gestores = [
-    "Marcos Paulo",
-    "Juliana Souza"]
+const gestores = [
+  "Marcos Paulo",
+  "Juliana Souza"
+];
 
-    
+const areas = [
+  "Tecnologia",
+  "Marketing",
+  "Vendas",
+  "Recursos Humanos",
+  "Financeiro"
+];
+
 function gerarSenha() {
   const caracteres = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789!@#$%^&*()';
   let senha = '';
@@ -26,46 +34,145 @@ function gerarSenha() {
 }
 
 const RegisterNewEmployeePage = () => {
-  const [login, setLongin] = useState('');
+  const [login, setLogin] = useState('');
   const [dataNascimento, setDataNascimento] = useState('');
   const [area, setArea] = useState('');
   const [dataInicio, setDataInicio] = useState('');
   const [buddy, setBuddy] = useState('');
   const [gestor, setGestor] = useState('');
-  const [selectedDate, setSelectedDate] = useState('');
-  const [senha, setSenha] = useState('');
+  const [senha, setSenha] = useState(gerarSenha());
+  const [foto, setFoto] = useState(null);
 
-   const handleDateChange = (event) => {
-    setSelectedDate(event.target.value);
+  const handleGerarNovaSenha = () => {
+    setSenha(gerarSenha());
   };
 
+  const handleFileChange = (event) => {
+    setFoto(event.target.files[0]);
+  };
+
+  const handleSubmit = (event) => {
+    event.preventDefault();
+    // Lógica para enviar os dados do formulário
+    console.log({ login, dataNascimento, area, dataInicio, buddy, gestor, senha, foto });
+  };
 
   return (
     <Styles.RegisterNewEmployeeContainer>
-        <Header/>
-        <Styles.Header>
-          <Styles.Label>Cadastro de Novo Colaborador</Styles.Label>
-        </Styles.Header>
-        <Styles.Body>
-          <GlobalStyle.Column>
-            <CampoTexto label="Login do novo colaborador" placeholder="Digite o email do funcionário" obrigatorio={true} valor={""} />
-            <CampoTexto  type="date" label="Data de nascimento do novo colaborador"
-        placeholder="Data de nascimento" obrigatorio={true}
-        value={dataNascimento}
-        onChange={handleDateChange}/>
-            <CampoTexto label="Login do Área do novo colaborador"   placeholder="Área  de atuação" obrigatorio={true} valor={login} aoAlterado={(valor)=>{setLongin(valor)}}/>
-            <CampoTexto  type="date" label="Data de início do novo colaborador"   placeholder="Inicio do novo colaborador" obrigatorio={true} valor={dataInicio} aoAlterado={(valor)=>{setDataInicio(valor)}}/>
-            <SuspendedList label="Buddy designado"  obrigatorio={true}   placeholder="Selecione o buddy" valor={buddy} itens={buddys} aoAlterado={(valor)=>{setBuddy(valor)}}/>
-            <SuspendedList label="Gestor da área"  obrigatorio={true}  placeholder="Selecione o gestor" valor={gestor} itens={gestores}aoAlterado={(valor)=>{setArea(valor)}}/>
-            
-            <CampoTexto label="Senha do novo colaborador"  obrigatorio={true}  placeholder="Gere a senha" valor={gerarSenha()} aoAlterado={(valor)=>{setSenha(valor)}}/>
+      <Header />
+      
+      <Styles.Header>
+        <Styles.Label>Cadastro dos novos colaboradores</Styles.Label>
+      </Styles.Header>
 
-            <CampoTexto label="Foto do novo colaborador" type="file" accept="image/*" obrigatorio={true} valor={""}  placeholder="Faça o upload da foto do novo colaborador" aoAlterado={()=>{}}/>
-          </GlobalStyle.Column>
-        </Styles.Body>
+      <Styles.FormContainer onSubmit={handleSubmit}>
+        <Styles.FormColumn>
+          {/* Coluna Esquerda */}
+          <Styles.InputGroup>
+            <GlobalStyles.H1>Login do novo colaborador</GlobalStyles.H1>
+            <CampoTexto
+              placeholder="Digite o email do funcionário"
+              obrigatorio={true}
+              valor={login}
+              aoAlterado={setLogin}
+            />
+          </Styles.InputGroup>
+
+          <Styles.InputGroup>
+            <GlobalStyles.H1>Data de nascimento do novo colaborador</GlobalStyles.H1>
+            <CampoTexto
+              type="date"
+              obrigatorio={true}
+              valor={dataNascimento}
+              aoAlterado={setDataNascimento}
+            />
+          </Styles.InputGroup>
+
+          <Styles.InputGroup>
+            <GlobalStyles.H1>Área de novo colaborador</GlobalStyles.H1>
+            <SuspendedList
+              obrigatorio={true}
+              valor={area}
+              itens={areas}
+              aoAlterado={setArea}
+            />
+          </Styles.InputGroup>
+
+          <Styles.InputGroup>
+            <GlobalStyles.H1>Buddy designado</GlobalStyles.H1>
+            <SuspendedList
+              obrigatorio={true}
+              valor={buddy}
+              itens={buddys}
+              aoAlterado={setBuddy}
+            />
+          </Styles.InputGroup>
+        </Styles.FormColumn>
+
+        <Styles.FormColumn>
+          {/* Coluna Direita */}
+          <Styles.InputGroup>
+            <GlobalStyles.H1>Início de novo colaborador</GlobalStyles.H1>
+            <CampoTexto
+              type="date"
+              obrigatorio={true}
+              valor={dataInicio}
+              aoAlterado={setDataInicio}
+            />
+          </Styles.InputGroup>
+
+          <Styles.InputGroup>
+            <GlobalStyles.H1>Gestor da área</GlobalStyles.H1>
+            <SuspendedList
+              obrigatorio={true}
+              valor={gestor}
+              itens={gestores}
+              aoAlterado={setGestor}
+            />
+          </Styles.InputGroup>
+
+          <Styles.InputGroup>
+            <GlobalStyles.H1>Senha de novo colaborador</GlobalStyles.H1>
+            <Styles.SenhaContainer>
+              <CampoTexto
+                obrigatorio={true}
+                valor={senha}
+                aoAlterado={setSenha}
+                placeholder="Senha gerada automaticamente"
+              />
+              <Styles.BotaoGerarSenha onClick={handleGerarNovaSenha}>
+                Gerar Nova
+              </Styles.BotaoGerarSenha>
+            </Styles.SenhaContainer>
+          </Styles.InputGroup>
+
+          <Styles.InputGroup>
+            <GlobalStyles.H1>Foto de novo colaborador</GlobalStyles.H1>
+            <Styles.FileInputContainer>
+              <Styles.FileInput
+                type="file"
+                accept="image/*"
+                onChange={handleFileChange}
+              />
+              <Styles.FileLabel>
+                {foto ? foto.name : 'Clique para selecionar a foto...'}
+              </Styles.FileLabel>
+            </Styles.FileInputContainer>
+          </Styles.InputGroup>
+        </Styles.FormColumn>
+      </Styles.FormContainer>
+
+      <Styles.AcoesContainer>
+        <Styles.BotaoEnviar type="submit">
+          Cadastrar Colaborador
+        </Styles.BotaoEnviar>
+        
+        <Styles.BotaoCancelar type="button">
+          Cancelar
+        </Styles.BotaoCancelar>
+      </Styles.AcoesContainer>
     </Styles.RegisterNewEmployeeContainer>
-  )
-}       
-
+  );
+};
 
 export default RegisterNewEmployeePage;
